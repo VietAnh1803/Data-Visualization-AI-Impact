@@ -1,78 +1,72 @@
-# Báo cáo phân tích bộ dữ liệu Global AI Content Impact
+# Phân tích mô tả các chỉ số liên quan đến AI trong bộ dữ liệu Global AI Content Impact
 
-**Phạm vi:** 200 bản ghi thuộc 10 quốc gia, 10 ngành và các năm 2020–2025.
+[English version](AI_impact_analysis_en.md) · [Dashboard tương tác](dashboard.html)
 
-**Nguồn:** [`data/Global_AI_Content_Impact_Dataset.csv`](../data/Global_AI_Content_Impact_Dataset.csv), SHA-256 `53b52d3d5fef30db9f575852ddcf6cbe347e049aef4de145f689f456fbf7a514`.
+**Dữ liệu:** [`Global_AI_Content_Impact_Dataset.csv`](../data/Global_AI_Content_Impact_Dataset.csv), 200 bản ghi, giai đoạn 2020–2025. **Ngày phân tích:** 09/10/2026. **Dấu vân tay SHA-256 của CSV:** `53b52d3d5fef30db9f575852ddcf6cbe347e049aef4de145f689f456fbf7a514`.
 
-**Ngày phân tích:** 09/10/2026. Mọi kết quả được tính từ bản CSV trong repo.
+## Tóm tắt
 
-## Tóm tắt điều hành
+Báo cáo mô tả phân bố của các chỉ số liên quan đến AI và xem xét mối liên hệ tuyến tính giữa chúng trong tập dữ liệu hiện có. Tỷ lệ ứng dụng AI trung bình của 200 bản ghi là 54,27%; tỷ lệ tăng doanh thu và mất việc được gắn nhãn “do AI” lần lượt là 39,72% và 25,79%. Tương quan Pearson giữa ứng dụng AI và tăng doanh thu gần bằng không (r = 0,002; khoảng tin cậy 95%: −0,137 đến 0,141). Trong 21 cặp chỉ số định lượng, không cặp nào đạt ngưỡng q < 0,05 sau hiệu chỉnh Benjamini–Hochberg. Những kết quả này mô tả các dòng trong CSV; nguồn thu thập, thiết kế mẫu và định nghĩa vận hành của chỉ số chưa được cung cấp. Vì vậy, báo cáo không ước lượng tác động nhân quả hoặc tỷ lệ đại diện cho một tổng thể rộng hơn.
 
-Bộ dữ liệu ghi nhận tỷ lệ ứng dụng AI trung bình **54,27%**, tăng doanh thu được gán cho AI trung bình **39,72%**, và mất việc được gán cho AI trung bình **25,79%**. Đây là **trung bình của các dòng dữ liệu**, không phải tỷ lệ toàn cầu hay ước lượng đại diện cho dân số.
+## 1. Dữ liệu và phạm vi phân tích
 
-Trong mẫu này, tỷ lệ ứng dụng AI gần như không có liên hệ tuyến tính với mức tăng doanh thu được báo cáo: **Pearson r = 0,002**, khoảng tin cậy 95% **[-0,137; 0,141]**, p = **0,979**. Liên hệ với tỷ lệ mất việc cũng gần 0 (**r = -0,005**). Trong 21 cặp chỉ số định lượng được xem xét, tương quan mạnh nhất theo trị tuyệt đối là giữa mất việc và tăng doanh thu (**r = 0,153**), nhưng không đạt ngưỡng 5% sau hiệu chỉnh Benjamini–Hochberg (**q = 0,644**).
+CSV gồm 12 cột: quốc gia, năm, ngành, bảy chỉ số định lượng và hai biến phân loại về công cụ AI được dùng nhiều nhất và tình trạng quy định. Bảy chỉ số định lượng gồm sáu tỷ lệ phần trăm — ứng dụng AI, mất việc, tăng doanh thu, hợp tác người–AI, niềm tin người tiêu dùng và thị phần doanh nghiệp AI — cùng khối lượng nội dung do AI tạo (TB/năm). Dữ liệu trải trên 10 quốc gia, 10 ngành và sáu năm từ 2020 đến 2025.
 
-**Khuyến nghị:** dùng bộ dữ liệu này cho minh họa quy trình phân tích khám phá; chưa dùng các con số để kết luận AI gây tăng doanh thu, mất việc, hay để so sánh hiệu quả chính sách giữa quốc gia/ngành. Muốn hỗ trợ quyết định thực tế cần xác nhận nguồn, định nghĩa chỉ số, đơn vị quan sát, cách lấy mẫu và phương pháp đo.
+Không có ô trống hoặc dòng trùng hoàn toàn. Các cột phần trăm nằm trong khoảng 0–100 và khối lượng nội dung đều dương. Tuy nhiên, **28 bản ghi lặp tổ hợp quốc gia–năm–ngành** so với một bản ghi trước đó; một tổ hợp có thể xuất hiện tới bốn lần. CSV không có mã định danh đơn vị quan sát, nên không có cơ sở xác định các dòng này là quan sát độc lập hay lỗi ghi nhận. Phân tích giữ nguyên toàn bộ 200 dòng.
 
-## 1. Câu hỏi và cách tiếp cận
+Repo cũng không cung cấp đơn vị thu thập, quy trình chọn mẫu, công thức tính chỉ số hoặc cách xác định phần tăng doanh thu và mất việc “do AI”. Tên cột cho biết nhãn của biến, nhưng chưa đủ để kiểm chứng phép đo. Tỷ lệ trung bình trong báo cáo vì thế là **trung bình của các bản ghi**, không phải tỷ lệ của toàn bộ quốc gia, ngành hay thị trường toàn cầu.
 
-Phân tích trả lời ba câu hỏi: mức độ phân bố của các chỉ số là gì; các trung bình theo năm biến động ra sao; và những chỉ số định lượng có quan hệ tuyến tính rõ ràng hay không. Mã tại [`analyze_data.py`](../analyze_data.py) đọc CSV, kiểm tra cấu trúc, tính số liệu, lưu [`summary.json`](figures/summary.json) và tạo bốn biểu đồ có thể chạy lại. [Dashboard HTML](dashboard.html) cho phép lọc và kiểm tra các so sánh dưới đây trên phần mẫu được chọn.
+## 2. Phương pháp
 
-Mỗi dòng được giữ với trọng số bằng nhau vì CSV không cung cấp trọng số mẫu. Trung bình theo năm không điều chỉnh thành phần quốc gia/ngành. Pearson r đo quan hệ tuyến tính; khoảng tin cậy dùng biến đổi Fisher. Giá trị p của 21 cặp chỉ số được hiệu chỉnh Benjamini–Hochberg để hạn chế phát hiện giả khi xem nhiều cặp. Khoảng 95% quanh trung bình năm dùng phân phối t và độ lệch chuẩn mẫu; các khoảng này chỉ có ý nghĩa suy luận nếu giả định về lấy mẫu phù hợp.
+Các thống kê mô tả gồm trung bình, trung vị và độ lệch chuẩn mẫu. Mọi dòng có trọng số bằng nhau; trung bình theo năm không được chuẩn hóa theo cơ cấu quốc gia hoặc ngành. Hồi quy tuyến tính đơn biến của chỉ số theo năm được dùng để mô tả độ dốc trong mẫu. Khoảng 95% quanh trung bình năm được tính bằng phân phối t.
 
-## 2. Kiểm tra dữ liệu
+Quan hệ giữa bảy chỉ số định lượng được mô tả bằng hệ số Pearson r; năm không được đưa vào ma trận tương quan chỉ số. Có 21 cặp so sánh. Khoảng tin cậy 95% cho r dùng phép biến đổi Fisher, còn p-value của 21 cặp được hiệu chỉnh bằng phương pháp Benjamini–Hochberg. Những khoảng tin cậy và phép kiểm định này dựa trên giả định thống kê về tính độc lập và cơ chế lấy mẫu. Tài liệu nguồn chưa cho phép xác nhận các giả định đó; chúng được trình bày để người đọc thấy độ bất định của ước lượng, không để suy rộng kết quả ra ngoài mẫu.
 
-- **Kích thước:** 200 dòng, 12 cột; 6 năm từ 2020 đến 2025; 10 quốc gia; 10 ngành.
-- **Độ đầy đủ:** 0 ô trống; 0 dòng trùng hoàn toàn.
-- **Đơn vị quan sát:** không được mô tả. Có **28 dòng lặp tổ hợp Country–Year–Industry**, tối đa 4 dòng cho một tổ hợp. Không thể xem tổ hợp đó là khóa duy nhất hoặc tự ý gộp/lọc các dòng lặp.
-- **Kiểm tra miền:** các cột phần trăm trong CSV đều nằm trong khoảng 0–100; cột khối lượng nội dung có giá trị dương.
-- **Xuất xứ:** repo không có tài liệu về tổ chức thu thập, phương pháp lấy mẫu, định nghĩa chỉ số, cách quy trách nhiệm “Due to AI”, hoặc giấy phép dữ liệu. Vì thế chưa thể xác minh tính đại diện và độ tin cậy của số đo.
+## 3. Kết quả
 
-Các cột gồm Country, Year, Industry, sáu tỷ lệ phần trăm (ứng dụng AI, mất việc, tăng doanh thu, hợp tác người–AI, niềm tin người tiêu dùng, thị phần công ty AI), khối lượng nội dung do AI tạo (TB/năm), Top AI Tools Used, và Regulation Status. Tên cột mô tả ý định đo lường, nhưng không thay thế định nghĩa vận hành của chỉ số.
+### 3.1. Phân bố các chỉ số chính
 
-## 3. Kết quả mô tả
+![Phân bố ứng dụng AI, mất việc và tăng doanh thu](figures/01_distributions.png)
 
-![Phân phối ba chỉ số AI](figures/01_distributions.png)
+*Hình 1. Phân bố ba tỷ lệ được báo cáo; vạch đứng biểu thị trung bình mẫu. Nguồn: CSV của repo, 2020–2025, n = 200.*
 
-*Hình 1. Số dòng theo tỷ lệ được báo cáo; đường đứng là trung bình mẫu. Nguồn: CSV trong repo, 2020–2025, n = 200.*
+Ứng dụng AI có trung bình 54,27%, trung vị 53,31% và độ lệch chuẩn 24,22 điểm phần trăm. Các giá trị tương ứng của tăng doanh thu là 39,72%, 42,10% và 23,83 điểm phần trăm; của mất việc là 25,79%, 25,74% và 13,90 điểm phần trăm. Mức phân tán này cần được lưu ý khi đọc một trị số trung bình duy nhất.
 
-Ứng dụng AI có trung vị **53,31%** và độ lệch chuẩn **24,22 điểm phần trăm**; mức tăng doanh thu có trung vị **42,10%**, độ lệch chuẩn **23,83**; tỷ lệ mất việc có trung vị **25,74%**, độ lệch chuẩn **13,90**. Biên độ lớn cho thấy trung bình riêng lẻ che khuất khác biệt giữa các dòng.
+### 3.2. Khác biệt giữa các năm
 
-![Trung bình theo năm](figures/02_year_means.png)
+![Trung bình ứng dụng AI và tăng doanh thu theo năm](figures/02_year_means.png)
 
-*Hình 2. Trung bình mẫu theo năm và khoảng 95% tính bằng phân phối t. Số dòng mỗi năm: 2020 = 47, 2021 = 32, 2022 = 31, 2023 = 29, 2024 = 23, 2025 = 38. Nguồn: CSV trong repo.*
+*Hình 2. Trung bình theo năm với khoảng 95% tính bằng phân phối t. Cỡ mẫu lần lượt từ 2020 đến 2025 là 47, 32, 31, 29, 23 và 38 dòng. Nguồn: CSV của repo.*
 
-Trung bình ứng dụng AI dao động từ **50,99% (2020)** đến **59,68% (2023)**, rồi là **54,26% (2025)**. Hồi quy tuyến tính ở cấp dòng theo Year cho độ dốc **+0,33 điểm phần trăm/năm**, p = **0,725**. Doanh thu tăng được báo cáo có độ dốc **-1,14 điểm phần trăm/năm**, p = **0,221**. Đây không phải bằng chứng về xu hướng tăng hoặc giảm bền vững; mẫu mỗi năm khác nhau và không có thiết kế theo dõi cùng đơn vị qua thời gian.
+Tỷ lệ ứng dụng AI trung bình là 50,99% vào năm 2020, đạt 59,68% vào năm 2023 và ở mức 54,26% vào năm 2025. Hồi quy đơn biến cho độ dốc 0,33 điểm phần trăm mỗi năm (p = 0,725). Với tăng doanh thu, độ dốc là −1,14 điểm phần trăm mỗi năm (p = 0,221). Cả hai chuỗi đều dao động qua các năm. Số dòng và thành phần mẫu thay đổi theo năm; dữ liệu không xác nhận rằng cùng một đơn vị được theo dõi liên tục.
 
-## 4. Quan hệ giữa các chỉ số
+### 3.3. Mối liên hệ giữa các chỉ số
 
-![Ma trận tương quan](figures/03_correlations.png)
+![Ma trận tương quan của bảy chỉ số định lượng](figures/03_correlations.png)
 
-*Hình 3. Pearson r giữa bảy chỉ số định lượng, không đưa Year vào như một thước đo tác động. Nguồn: CSV trong repo, n = 200.*
+*Hình 3. Hệ số Pearson r tính trên bảy chỉ số định lượng, n = 200. Màu thể hiện dấu và độ lớn của tương quan. Nguồn: CSV của repo.*
 
-![Ứng dụng AI và tăng doanh thu](figures/04_adoption_revenue.png)
+![Ứng dụng AI và tăng doanh thu được báo cáo](figures/04_adoption_revenue.png)
 
-*Hình 4. Mỗi điểm là một dòng; đường là hồi quy tuyến tính mô tả, không mang nghĩa nhân quả. Nguồn: CSV trong repo, n = 200.*
+*Hình 4. Mỗi điểm tương ứng một bản ghi; đường thẳng là hồi quy tuyến tính mô tả. Nguồn: CSV của repo, n = 200.*
 
-Các hệ số tương quan quan sát được đều có độ lớn nhỏ; **|r| lớn nhất là 0,153**. Chỉ cặp mất việc–tăng doanh thu có p chưa hiệu chỉnh dưới 0,05 (**0,031**), nhưng q sau hiệu chỉnh là **0,644**. Với ứng dụng AI–tăng doanh thu, khoảng tin cậy vẫn cho phép các liên hệ âm/dương nhỏ; dữ liệu không chứng minh “không có tác động”, chỉ cho thấy **không phát hiện quan hệ tuyến tính rõ trong mẫu này**.
+Giữa ứng dụng AI và tăng doanh thu, r = 0,002 (p = 0,979; khoảng tin cậy 95%: −0,137 đến 0,141). Giữa ứng dụng AI và mất việc, r = −0,005 (p = 0,949). Trong 21 cặp, trị tuyệt đối lớn nhất thuộc cặp mất việc–tăng doanh thu (r = 0,153; p chưa hiệu chỉnh = 0,031). Sau hiệu chỉnh nhiều phép thử, cặp này có q = 0,644. Không có cặp nào đạt q < 0,05. Kết quả cho thấy dữ liệu hiện tại không ghi nhận quan hệ tuyến tính rõ về độ lớn giữa các chỉ số chính; chúng không chứng minh rằng tác động thực tế bằng không.
 
-Một ví dụ cho thấy vì sao cần xem nhiều chỉ số cùng lúc: **Gaming** đứng đầu 10 ngành về ứng dụng AI trung bình (**60,42%; n = 27**) nhưng thấp nhất về mức tăng doanh thu được báo cáo (**33,23%**). **Media** có ứng dụng AI thấp hơn (**47,26%; n = 31**) nhưng mức tăng doanh thu cao hơn (**43,72%**). Đây chỉ là so sánh mô tả giữa nhóm; dữ liệu không đủ để giải thích nguyên nhân chênh lệch. Dashboard cho phép đổi ngành/quốc gia, chỉ số và bộ lọc để kiểm tra mức độ ổn định của quan sát này.
+### 3.4. Một so sánh giữa các ngành
 
-## 5. Giới hạn và hàm ý sử dụng
+Trong 10 ngành, Gaming có ứng dụng AI trung bình cao nhất (60,42%; n = 27) nhưng tăng doanh thu được báo cáo thấp nhất (33,23%). Media có ứng dụng AI trung bình thấp nhất (47,26%; n = 31), trong khi tăng doanh thu đạt 43,72%. Sự đảo chiều thứ hạng này đáng để khảo sát thêm, nhưng không cho biết nguyên nhân. Các trung bình ngành chưa được điều chỉnh theo quốc gia, năm hoặc đặc điểm đơn vị quan sát; báo cáo cũng không thực hiện phép kiểm định chênh lệch giữa hai ngành.
 
-1. **Không có cơ sở quy nhân quả.** Dữ liệu quan sát không có nhóm đối chứng, thời điểm trước/sau, hay biến kiểm soát được xác minh. Các nhãn “Due to AI” trong CSV là tên cột, không phải bằng chứng về nguyên nhân.
-2. **Không rõ mức độ đại diện.** Quốc gia, ngành và năm có số dòng khác nhau; không có trọng số hoặc thiết kế chọn mẫu. Không ngoại suy trung bình mẫu thành “toàn cầu”.
-3. **Khóa dữ liệu chưa rõ.** Lặp Country–Year–Industry có thể là nhiều đơn vị hợp lệ hoặc lỗi ghi nhận. Cần data dictionary/ID quan sát trước khi gộp hoặc loại.
-4. **Sai số đo chưa biết.** Không có công thức cho adoption, job loss, revenue increase, collaboration, trust, market share và content volume; cũng không rõ nguồn của “Top AI Tools Used” và “Regulation Status”.
-5. **Biểu đồ suy luận phụ thuộc giả định.** Các khoảng tin cậy và p-value được trình bày để minh họa độ bất định dưới giả định thống kê thông thường, không khắc phục thiếu sót của nguồn dữ liệu.
+## 4. Diễn giải và giới hạn
 
-### Bước tiếp theo nếu dùng cho quyết định
+Các nhãn “Due to AI” trong CSV là mô tả do nguồn dữ liệu đặt ra. Không có thiết kế đối chứng, dữ liệu trước–sau trên cùng đơn vị, hoặc thông tin về các yếu tố gây nhiễu để kiểm tra cách quy thuộc kết quả cho AI. Vì vậy, các hệ số trong báo cáo được diễn giải như mối liên hệ giữa các biến được ghi nhận.
 
-Thu thập metadata gốc và ID đơn vị quan sát; xác minh thang đo, phương pháp lấy mẫu và quyền sử dụng; chuẩn hóa khóa; thiết kế phân tích theo cùng đơn vị qua thời gian, có biến kiểm soát và thước đo kết quả xác thực. Sau đó mới cân nhắc so sánh theo ngành/quốc gia hoặc đánh giá tác động.
+Thiếu thiết kế mẫu và trọng số cũng giới hạn khả năng suy rộng. Số bản ghi khác nhau giữa các năm, quốc gia và ngành; 28 dòng lặp tổ hợp quốc gia–năm–ngành làm cho tính độc lập của quan sát chưa rõ. Các khoảng tin cậy và p-value chỉ có thể được hiểu theo đúng giả định thống kê đã nêu ở mục 2. Việc không đạt ngưỡng kiểm định không phải bằng chứng rằng AI không có ảnh hưởng.
 
-## 6. Tái tạo kết quả
+Trước khi dùng dữ liệu để ra quyết định, cần có tài liệu về đơn vị quan sát, nguồn thu thập, công thức và thời điểm đo từng chỉ số, quy tắc xử lý bản ghi lặp và quyền sử dụng dữ liệu. Nếu mục tiêu là đánh giá tác động, bước tiếp theo là thu thập dữ liệu theo cùng đơn vị qua thời gian và xác định một thiết kế so sánh phù hợp.
 
-Tại thư mục gốc repo:
+## 5. Tái lập kết quả
+
+Từ thư mục gốc của repo:
 
 ```bash
 python -m pip install -r requirements.txt
@@ -80,4 +74,4 @@ python analyze_data.py
 python build_dashboard.py
 ```
 
-Đầu ra số và PNG nằm trong `reports/figures/`; dashboard tự chạy nằm tại `reports/dashboard.html`. Có thể thay dữ liệu/đích phân tích bằng `--data path/to/file.csv --output path/to/dir`. Script báo lỗi khi thiếu cột bắt buộc hoặc dữ liệu rỗng; kết quả số đầy đủ và p/q được ghi trong `summary.json`. Các PNG cũ ở thư mục gốc thuộc script trước đây và không phải nguồn cho báo cáo này.
+Script đầu tiên tạo bốn hình và [`summary.json`](figures/summary.json) trong `reports/figures/`. Script thứ hai nhúng CSV hiện tại vào [dashboard HTML](dashboard.html) để mở offline. `analyze_data.py` nhận tùy chọn `--data` và `--output` khi cần thay nguồn hoặc thư mục đầu ra. Các hình PNG cũ ở thư mục gốc là sản phẩm của phiên bản code trước, không được dùng để lập báo cáo này.

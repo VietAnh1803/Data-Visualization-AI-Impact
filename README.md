@@ -1,6 +1,6 @@
 # Phân tích dữ liệu Global AI Content Impact
 
-Repo cung cấp phân tích khám phá có thể chạy lại cho [`Global_AI_Content_Impact_Dataset.csv`](data/Global_AI_Content_Impact_Dataset.csv). Mở [dashboard HTML tương tác](reports/dashboard.html) để lọc và khám phá dữ liệu; đọc [báo cáo đầy đủ bằng tiếng Việt](reports/AI_impact_analysis_vi.md) để xem phương pháp, phát hiện và giới hạn diễn giải.
+Repo cung cấp phân tích khám phá có thể chạy lại cho [`Global_AI_Content_Impact_Dataset.csv`](data/Global_AI_Content_Impact_Dataset.csv). Mở [dashboard HTML tương tác](reports/dashboard.html) để lọc dữ liệu. Báo cáo học thuật có hai bản tương ứng: [tiếng Việt](reports/AI_impact_analysis_vi.md) và [English](reports/AI_impact_analysis_en.md).
 
 ## Kết quả chính
 
@@ -27,7 +27,7 @@ python analyze_data.py --data data/Global_AI_Content_Impact_Dataset.csv --output
 - `analyze_data.py`: kiểm tra schema, số liệu mô tả, tương quan và biểu đồ.
 - `build_dashboard.py`: cập nhật dữ liệu nhúng trong dashboard HTML.
 - `data/`: CSV nguồn được giữ nguyên.
-- `reports/AI_impact_analysis_vi.md`: báo cáo cho người đọc.
+- `reports/AI_impact_analysis_vi.md` và `reports/AI_impact_analysis_en.md`: hai bản ngôn ngữ của cùng báo cáo.
 - `reports/dashboard.html`: dashboard offline với bộ lọc, biểu đồ và insight tính theo lựa chọn hiện tại.
 - `reports/figures/`: biểu đồ và `summary.json` có thể tái tạo.
 
