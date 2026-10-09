@@ -16,7 +16,7 @@ python analyze_data.py
 python build_dashboard.py
 ```
 
-`analyze_data.py` ghi bốn biểu đồ PNG và số liệu máy đọc được vào `reports/figures/`. `build_dashboard.py` nhúng CSV hiện tại vào `reports/dashboard.html`; có thể mở file HTML trực tiếp bằng trình duyệt mà không cần server hay Internet. Hai script chạy được từ bất kỳ thư mục nào vì đường dẫn mặc định được tính theo vị trí script. Tùy chọn cho phân tích:
+`analyze_data.py` ghi bốn biểu đồ PNG và số liệu máy đọc được vào `reports/figures/`. `build_dashboard.py` nhúng CSV hiện tại vào `reports/dashboard.html`; có thể mở file HTML trực tiếp bằng trình duyệt mà không cần server hay Internet. Nút **VI / EN** đổi ngôn ngữ toàn bộ dashboard và giữ nguyên lựa chọn bộ lọc. Hai script chạy được từ bất kỳ thư mục nào vì đường dẫn mặc định được tính theo vị trí script. Tùy chọn cho phân tích:
 
 ```bash
 python analyze_data.py --data data/Global_AI_Content_Impact_Dataset.csv --output reports/figures
