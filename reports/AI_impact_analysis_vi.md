@@ -16,7 +16,7 @@ Trong mẫu này, tỷ lệ ứng dụng AI gần như không có liên hệ tuy
 
 ## 1. Câu hỏi và cách tiếp cận
 
-Phân tích trả lời ba câu hỏi: mức độ phân bố của các chỉ số là gì; các trung bình theo năm biến động ra sao; và những chỉ số định lượng có quan hệ tuyến tính rõ ràng hay không. Mã tại [`analyze_data.py`](../analyze_data.py) đọc CSV, kiểm tra cấu trúc, tính số liệu, lưu [`summary.json`](figures/summary.json) và tạo bốn biểu đồ có thể chạy lại.
+Phân tích trả lời ba câu hỏi: mức độ phân bố của các chỉ số là gì; các trung bình theo năm biến động ra sao; và những chỉ số định lượng có quan hệ tuyến tính rõ ràng hay không. Mã tại [`analyze_data.py`](../analyze_data.py) đọc CSV, kiểm tra cấu trúc, tính số liệu, lưu [`summary.json`](figures/summary.json) và tạo bốn biểu đồ có thể chạy lại. [Dashboard HTML](dashboard.html) cho phép lọc và kiểm tra các so sánh dưới đây trên phần mẫu được chọn.
 
 Mỗi dòng được giữ với trọng số bằng nhau vì CSV không cung cấp trọng số mẫu. Trung bình theo năm không điều chỉnh thành phần quốc gia/ngành. Pearson r đo quan hệ tuyến tính; khoảng tin cậy dùng biến đổi Fisher. Giá trị p của 21 cặp chỉ số được hiệu chỉnh Benjamini–Hochberg để hạn chế phát hiện giả khi xem nhiều cặp. Khoảng 95% quanh trung bình năm dùng phân phối t và độ lệch chuẩn mẫu; các khoảng này chỉ có ý nghĩa suy luận nếu giả định về lấy mẫu phù hợp.
 
@@ -56,6 +56,8 @@ Trung bình ứng dụng AI dao động từ **50,99% (2020)** đến **59,68% (
 
 Các hệ số tương quan quan sát được đều có độ lớn nhỏ; **|r| lớn nhất là 0,153**. Chỉ cặp mất việc–tăng doanh thu có p chưa hiệu chỉnh dưới 0,05 (**0,031**), nhưng q sau hiệu chỉnh là **0,644**. Với ứng dụng AI–tăng doanh thu, khoảng tin cậy vẫn cho phép các liên hệ âm/dương nhỏ; dữ liệu không chứng minh “không có tác động”, chỉ cho thấy **không phát hiện quan hệ tuyến tính rõ trong mẫu này**.
 
+Một ví dụ cho thấy vì sao cần xem nhiều chỉ số cùng lúc: **Gaming** đứng đầu 10 ngành về ứng dụng AI trung bình (**60,42%; n = 27**) nhưng thấp nhất về mức tăng doanh thu được báo cáo (**33,23%**). **Media** có ứng dụng AI thấp hơn (**47,26%; n = 31**) nhưng mức tăng doanh thu cao hơn (**43,72%**). Đây chỉ là so sánh mô tả giữa nhóm; dữ liệu không đủ để giải thích nguyên nhân chênh lệch. Dashboard cho phép đổi ngành/quốc gia, chỉ số và bộ lọc để kiểm tra mức độ ổn định của quan sát này.
+
 ## 5. Giới hạn và hàm ý sử dụng
 
 1. **Không có cơ sở quy nhân quả.** Dữ liệu quan sát không có nhóm đối chứng, thời điểm trước/sau, hay biến kiểm soát được xác minh. Các nhãn “Due to AI” trong CSV là tên cột, không phải bằng chứng về nguyên nhân.
@@ -75,6 +77,7 @@ Tại thư mục gốc repo:
 ```bash
 python -m pip install -r requirements.txt
 python analyze_data.py
+python build_dashboard.py
 ```
 
-Đầu ra nằm trong `reports/figures/`. Có thể thay dữ liệu/đích bằng `--data path/to/file.csv --output path/to/dir`. Script báo lỗi khi thiếu cột bắt buộc hoặc dữ liệu rỗng; kết quả số đầy đủ và p/q được ghi trong `summary.json`. Các PNG cũ ở thư mục gốc thuộc script trước đây và không phải nguồn cho báo cáo này.
+Đầu ra số và PNG nằm trong `reports/figures/`; dashboard tự chạy nằm tại `reports/dashboard.html`. Có thể thay dữ liệu/đích phân tích bằng `--data path/to/file.csv --output path/to/dir`. Script báo lỗi khi thiếu cột bắt buộc hoặc dữ liệu rỗng; kết quả số đầy đủ và p/q được ghi trong `summary.json`. Các PNG cũ ở thư mục gốc thuộc script trước đây và không phải nguồn cho báo cáo này.

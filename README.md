@@ -1,6 +1,6 @@
 # Phân tích dữ liệu Global AI Content Impact
 
-Repo cung cấp phân tích khám phá có thể chạy lại cho [`Global_AI_Content_Impact_Dataset.csv`](data/Global_AI_Content_Impact_Dataset.csv). Đọc [báo cáo đầy đủ bằng tiếng Việt](reports/AI_impact_analysis_vi.md) để xem phương pháp, phát hiện, biểu đồ và giới hạn diễn giải.
+Repo cung cấp phân tích khám phá có thể chạy lại cho [`Global_AI_Content_Impact_Dataset.csv`](data/Global_AI_Content_Impact_Dataset.csv). Mở [dashboard HTML tương tác](reports/dashboard.html) để lọc và khám phá dữ liệu; đọc [báo cáo đầy đủ bằng tiếng Việt](reports/AI_impact_analysis_vi.md) để xem phương pháp, phát hiện và giới hạn diễn giải.
 
 ## Kết quả chính
 
@@ -13,9 +13,10 @@ Yêu cầu Python 3.10+.
 ```bash
 python -m pip install -r requirements.txt
 python analyze_data.py
+python build_dashboard.py
 ```
 
-Script ghi bốn biểu đồ PNG và số liệu máy đọc được vào `reports/figures/`. Chạy được từ bất kỳ thư mục nào vì đường dẫn mặc định được tính theo vị trí script. Tùy chọn:
+`analyze_data.py` ghi bốn biểu đồ PNG và số liệu máy đọc được vào `reports/figures/`. `build_dashboard.py` nhúng CSV hiện tại vào `reports/dashboard.html`; có thể mở file HTML trực tiếp bằng trình duyệt mà không cần server hay Internet. Hai script chạy được từ bất kỳ thư mục nào vì đường dẫn mặc định được tính theo vị trí script. Tùy chọn cho phân tích:
 
 ```bash
 python analyze_data.py --data data/Global_AI_Content_Impact_Dataset.csv --output reports/figures
@@ -24,8 +25,10 @@ python analyze_data.py --data data/Global_AI_Content_Impact_Dataset.csv --output
 ## Cấu trúc
 
 - `analyze_data.py`: kiểm tra schema, số liệu mô tả, tương quan và biểu đồ.
+- `build_dashboard.py`: cập nhật dữ liệu nhúng trong dashboard HTML.
 - `data/`: CSV nguồn được giữ nguyên.
 - `reports/AI_impact_analysis_vi.md`: báo cáo cho người đọc.
+- `reports/dashboard.html`: dashboard offline với bộ lọc, biểu đồ và insight tính theo lựa chọn hiện tại.
 - `reports/figures/`: biểu đồ và `summary.json` có thể tái tạo.
 
 Các PNG cũ ở thư mục gốc là đầu ra lịch sử của code trước đây. Báo cáo mới chỉ dẫn tới biểu đồ trong `reports/figures/`.
