@@ -1,0 +1,365 @@
+{
+  "source": "data/Global_AI_Content_Impact_Dataset.csv",
+  "rows": 200,
+  "columns": 12,
+  "missing_cells": 0,
+  "exact_duplicate_rows": 0,
+  "duplicate_country_year_industry_rows": 28,
+  "countries": 10,
+  "industries": 10,
+  "years": {
+    "2020": 47,
+    "2021": 32,
+    "2022": 31,
+    "2023": 29,
+    "2024": 23,
+    "2025": 38
+  },
+  "numeric_summary": {
+    "AI Adoption Rate (%)": {
+      "mean": 54.26585,
+      "median": 53.31,
+      "std": 24.21806672832885,
+      "min": 10.53,
+      "max": 94.76
+    },
+    "Job Loss Due to AI (%)": {
+      "mean": 25.788249999999998,
+      "median": 25.735,
+      "std": 13.901105138002121,
+      "min": 0.09,
+      "max": 49.71
+    },
+    "Revenue Increase Due to AI (%)": {
+      "mean": 39.719449999999995,
+      "median": 42.1,
+      "std": 23.829545302926388,
+      "min": 0.14,
+      "max": 79.55
+    },
+    "Human-AI Collaboration Rate (%)": {
+      "mean": 54.10215,
+      "median": 54.515,
+      "std": 19.247078558646596,
+      "min": 20.21,
+      "max": 88.29
+    },
+    "Consumer Trust in AI (%)": {
+      "mean": 59.425149999999995,
+      "median": 59.215,
+      "std": 17.319668082557175,
+      "min": 30.12,
+      "max": 89.88
+    },
+    "Market Share of AI Companies (%)": {
+      "mean": 26.56955,
+      "median": 27.39,
+      "std": 14.023728538018704,
+      "min": 1.18,
+      "max": 49.28
+    },
+    "AI-Generated Content Volume (TBs per year)": {
+      "mean": 46.0726,
+      "median": 44.32,
+      "std": 29.16121960557243,
+      "min": 1.04,
+      "max": 99.06
+    }
+  },
+  "year_means": {
+    "2020": {
+      "n": 47,
+      "adoption_mean": 50.992765957446814,
+      "revenue_mean": 44.20234042553191
+    },
+    "2021": {
+      "n": 32,
+      "adoption_mean": 57.571875,
+      "revenue_mean": 42.991875
+    },
+    "2022": {
+      "n": 31,
+      "adoption_mean": 52.988064516129036,
+      "revenue_mean": 35.484838709677426
+    },
+    "2023": {
+      "n": 29,
+      "adoption_mean": 59.677241379310345,
+      "revenue_mean": 33.02827586206897
+    },
+    "2024": {
+      "n": 23,
+      "adoption_mean": 51.258695652173905,
+      "revenue_mean": 42.450434782608696
+    },
+    "2025": {
+      "n": 38,
+      "adoption_mean": 54.2628947368421,
+      "revenue_mean": 38.3271052631579
+    }
+  },
+  "trends": {
+    "AI Adoption Rate (%)": {
+      "slope_percentage_points_per_year": 0.3319607784002222,
+      "p": 0.7250582843319819
+    },
+    "Revenue Increase Due to AI (%)": {
+      "slope_percentage_points_per_year": -1.1358662002096018,
+      "p": 0.22050551857318892
+    }
+  },
+  "correlations": [
+    {
+      "left": "AI Adoption Rate (%)",
+      "right": "Job Loss Due to AI (%)",
+      "n": 200,
+      "r": -0.004589157660376015,
+      "p": 0.9485768610281533,
+      "ci95": [
+        -0.14323897199045124,
+        0.1342373270481872
+      ],
+      "q_bh": 0.9788920037143533
+    },
+    {
+      "left": "AI Adoption Rate (%)",
+      "right": "Revenue Increase Due to AI (%)",
+      "n": 200,
+      "r": 0.001882664719241181,
+      "p": 0.9788920037143533,
+      "ci95": [
+        -0.13689410761970874,
+        0.14058695822283568
+      ],
+      "q_bh": 0.9788920037143533
+    },
+    {
+      "left": "AI Adoption Rate (%)",
+      "right": "Human-AI Collaboration Rate (%)",
+      "n": 200,
+      "r": 0.05035934957366778,
+      "p": 0.47883707080361054,
+      "ci95": [
+        -0.08900352501644508,
+        0.1877883053079741
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "AI Adoption Rate (%)",
+      "right": "Consumer Trust in AI (%)",
+      "n": 200,
+      "r": -0.11522696529943563,
+      "p": 0.1042142157401132,
+      "ci95": [
+        -0.2499717555121388,
+        0.023896069352087015
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "AI Adoption Rate (%)",
+      "right": "Market Share of AI Companies (%)",
+      "n": 200,
+      "r": 0.06582924858251298,
+      "p": 0.354375383793115,
+      "ci95": [
+        -0.07358382364300624,
+        0.20271878914879204
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "AI Adoption Rate (%)",
+      "right": "AI-Generated Content Volume (TBs per year)",
+      "n": 200,
+      "r": -0.04236390844102752,
+      "p": 0.5514235411957668,
+      "ci95": [
+        -0.18004667919183479,
+        0.09694692313809986
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Job Loss Due to AI (%)",
+      "right": "Revenue Increase Due to AI (%)",
+      "n": 200,
+      "r": 0.15289342078430584,
+      "p": 0.030663642255635774,
+      "ci95": [
+        0.014459120953229062,
+        0.28557661676357693
+      ],
+      "q_bh": 0.6439364873683513
+    },
+    {
+      "left": "Job Loss Due to AI (%)",
+      "right": "Human-AI Collaboration Rate (%)",
+      "n": 200,
+      "r": 0.021558779857882862,
+      "p": 0.7618812005591192,
+      "ci95": [
+        -0.11753378914414186,
+        0.1598217542983653
+      ],
+      "q_bh": 0.9788920037143533
+    },
+    {
+      "left": "Job Loss Due to AI (%)",
+      "right": "Consumer Trust in AI (%)",
+      "n": 200,
+      "r": 0.08244633499239802,
+      "p": 0.24578996674987266,
+      "ci95": [
+        -0.056946068543637936,
+        0.2186858707125209
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Job Loss Due to AI (%)",
+      "right": "Market Share of AI Companies (%)",
+      "n": 200,
+      "r": 0.07833130821238912,
+      "p": 0.27023420591547753,
+      "ci95": [
+        -0.061073438794631105,
+        0.21473859479234103
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Job Loss Due to AI (%)",
+      "right": "AI-Generated Content Volume (TBs per year)",
+      "n": 200,
+      "r": 0.06218484387339074,
+      "p": 0.3817038666920834,
+      "ci95": [
+        -0.07722241454498628,
+        0.1992071815236462
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Revenue Increase Due to AI (%)",
+      "right": "Human-AI Collaboration Rate (%)",
+      "n": 200,
+      "r": 0.08127485897973473,
+      "p": 0.2525865760807147,
+      "ci95": [
+        -0.058121543854415474,
+        0.21756260423036503
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Revenue Increase Due to AI (%)",
+      "right": "Consumer Trust in AI (%)",
+      "n": 200,
+      "r": 0.028598306493948494,
+      "p": 0.6876926265206513,
+      "ci95": [
+        -0.11058146923646527,
+        0.1666779837903745
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Revenue Increase Due to AI (%)",
+      "right": "Market Share of AI Companies (%)",
+      "n": 200,
+      "r": 0.006711589045031402,
+      "p": 0.9248531165529891,
+      "ci95": [
+        -0.13215248294915174,
+        0.14531728876887573
+      ],
+      "q_bh": 0.9788920037143533
+    },
+    {
+      "left": "Revenue Increase Due to AI (%)",
+      "right": "AI-Generated Content Volume (TBs per year)",
+      "n": 200,
+      "r": 0.029310393747508573,
+      "p": 0.6803380111676618,
+      "ci95": [
+        -0.10987744400101723,
+        0.1673707866543296
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Human-AI Collaboration Rate (%)",
+      "right": "Consumer Trust in AI (%)",
+      "n": 200,
+      "r": 0.003955462244327544,
+      "p": 0.9556698061360289,
+      "ci95": [
+        -0.1348595618525036,
+        0.1426182107440636
+      ],
+      "q_bh": 0.9788920037143533
+    },
+    {
+      "left": "Human-AI Collaboration Rate (%)",
+      "right": "Market Share of AI Companies (%)",
+      "n": 200,
+      "r": -0.04057157037799697,
+      "p": 0.568401564166532,
+      "ci95": [
+        -0.17830889536340377,
+        0.09872516293863419
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Human-AI Collaboration Rate (%)",
+      "right": "AI-Generated Content Volume (TBs per year)",
+      "n": 200,
+      "r": 0.018460623925573367,
+      "p": 0.7952816178558076,
+      "ci95": [
+        -0.12058924998576685,
+        0.156800035720315
+      ],
+      "q_bh": 0.9788920037143533
+    },
+    {
+      "left": "Consumer Trust in AI (%)",
+      "right": "Market Share of AI Companies (%)",
+      "n": 200,
+      "r": -0.03210803548642704,
+      "p": 0.6517398898996343,
+      "ci95": [
+        -0.17009134454174446,
+        0.10711012334702973
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Consumer Trust in AI (%)",
+      "right": "AI-Generated Content Volume (TBs per year)",
+      "n": 200,
+      "r": 0.027772625519924047,
+      "p": 0.6962572816876085,
+      "ci95": [
+        -0.11139762728200833,
+        0.16587449276233368
+      ],
+      "q_bh": 0.9747601943626518
+    },
+    {
+      "left": "Market Share of AI Companies (%)",
+      "right": "AI-Generated Content Volume (TBs per year)",
+      "n": 200,
+      "r": -0.02778899686670267,
+      "p": 0.6960870859456646,
+      "ci95": [
+        -0.16589042591570657,
+        0.11138144657698688
+      ],
+      "q_bh": 0.9747601943626518
+    }
+  ]
+}

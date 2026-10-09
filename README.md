@@ -1,78 +1,31 @@
-# Data Visualization: AI Impact Analysis
+# Phân tích dữ liệu Global AI Content Impact
 
-## Overview
+Repo cung cấp phân tích khám phá có thể chạy lại cho [`Global_AI_Content_Impact_Dataset.csv`](data/Global_AI_Content_Impact_Dataset.csv). Đọc [báo cáo đầy đủ bằng tiếng Việt](reports/AI_impact_analysis_vi.md) để xem phương pháp, phát hiện, biểu đồ và giới hạn diễn giải.
 
-This project analyzes the Global AI Content Impact Dataset to understand the impact and trends of AI-generated content. The analysis includes statistical analysis, data visualization, and exploratory data analysis (EDA).
+## Kết quả chính
 
-## Features
+Mẫu gồm 200 dòng trong giai đoạn 2020–2025. Trung bình tỷ lệ ứng dụng AI là 54,27%. Tương quan Pearson giữa ứng dụng AI và tăng doanh thu được báo cáo gần bằng 0 (r = 0,002); không thể suy ra tác động nhân quả từ CSV này. Nguồn và phương pháp lấy mẫu chưa được cung cấp.
 
-- 📊 Statistical analysis
-- 📈 Data visualization
-- 🔍 Exploratory Data Analysis (EDA)
-- 📉 Distribution analysis
-- 🔗 Correlation analysis
-- 📊 PCA analysis
-- 📈 Outlier detection
+## Chạy lại
 
-## Requirements
-
-```
-pandas>=1.5.0
-matplotlib>=3.5.0
-seaborn>=0.12.0
-numpy>=1.21.0
-scipy>=1.7.0
-scikit-learn>=1.0.0
-```
-
-## Installation
-
-1. Clone the repository:
+Yêu cầu Python 3.10+.
 
 ```bash
-git clone https://github.com/VietAnh1803/Data-Visualization-AI-Impact.git
-cd Data-Visualization-AI-Impact
-```
-
-2. Install required packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
-
-Run the analysis script:
-
-```bash
+python -m pip install -r requirements.txt
 python analyze_data.py
 ```
 
-The script will generate:
+Script ghi bốn biểu đồ PNG và số liệu máy đọc được vào `reports/figures/`. Chạy được từ bất kỳ thư mục nào vì đường dẫn mặc định được tính theo vị trí script. Tùy chọn:
 
-1. Analysis report in the terminal
-2. Visualization files:
-   - `enhanced_distributions.png`: Distribution analysis
-   - `correlation_matrix.png`: Correlation heatmap
-   - `box_plots.png`: Box plot analysis
-   - `pca_analysis.png`: PCA analysis
-   - `[column_name]_distribution.png`: Categorical distributions
-
-## Project Structure
-
-```
-Data-Visualization-AI-Impact/
-├── analyze_data.py          # Main analysis script
-├── requirements.txt         # Project dependencies
-├── README.md               # Project documentation
-└── data/                   # Data directory
-    └── Global_AI_Content_Impact_Dataset.csv
+```bash
+python analyze_data.py --data data/Global_AI_Content_Impact_Dataset.csv --output reports/figures
 ```
 
-## Author
+## Cấu trúc
 
-- **Viet Anh** - [GitHub](https://github.com/VietAnh1803)
+- `analyze_data.py`: kiểm tra schema, số liệu mô tả, tương quan và biểu đồ.
+- `data/`: CSV nguồn được giữ nguyên.
+- `reports/AI_impact_analysis_vi.md`: báo cáo cho người đọc.
+- `reports/figures/`: biểu đồ và `summary.json` có thể tái tạo.
 
-## License
-
-This project is licensed under the MIT License.
+Các PNG cũ ở thư mục gốc là đầu ra lịch sử của code trước đây. Báo cáo mới chỉ dẫn tới biểu đồ trong `reports/figures/`.
