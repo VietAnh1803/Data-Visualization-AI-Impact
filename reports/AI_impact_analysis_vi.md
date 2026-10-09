@@ -26,7 +26,7 @@ Quan hệ giữa bảy chỉ số định lượng được mô tả bằng hệ
 
 ### 3.1. Phân bố các chỉ số chính
 
-![Phân bố ứng dụng AI, mất việc và tăng doanh thu](figures/01_distributions.png)
+![Phân bố ứng dụng AI, mất việc và tăng doanh thu](figures/01_distributions_vi.png)
 
 *Hình 1. Phân bố ba tỷ lệ được báo cáo; vạch đứng biểu thị trung bình mẫu. Nguồn: CSV của repo, 2020–2025, n = 200.*
 
@@ -34,7 +34,7 @@ Quan hệ giữa bảy chỉ số định lượng được mô tả bằng hệ
 
 ### 3.2. Khác biệt giữa các năm
 
-![Trung bình ứng dụng AI và tăng doanh thu theo năm](figures/02_year_means.png)
+![Trung bình ứng dụng AI và tăng doanh thu theo năm](figures/02_year_means_vi.png)
 
 *Hình 2. Trung bình theo năm với khoảng 95% tính bằng phân phối t. Cỡ mẫu lần lượt từ 2020 đến 2025 là 47, 32, 31, 29, 23 và 38 dòng. Nguồn: CSV của repo.*
 
@@ -42,17 +42,21 @@ Tỷ lệ ứng dụng AI trung bình là 50,99% vào năm 2020, đạt 59,68% v
 
 ### 3.3. Mối liên hệ giữa các chỉ số
 
-![Ma trận tương quan của bảy chỉ số định lượng](figures/03_correlations.png)
+![Ma trận tương quan của bảy chỉ số định lượng](figures/03_correlations_vi.png)
 
-*Hình 3. Hệ số Pearson r tính trên bảy chỉ số định lượng, n = 200. Màu thể hiện dấu và độ lớn của tương quan. Nguồn: CSV của repo.*
+*Hình 3. Hệ số Pearson r tính trên bảy chỉ số định lượng, n = 200. Chỉ hiện 21 cặp khác nhau; thang màu −0,25 đến 0,25 làm rõ các hệ số nhỏ, không biểu thị ngưỡng ý nghĩa thống kê. Nguồn: CSV của repo.*
 
-![Ứng dụng AI và tăng doanh thu được báo cáo](figures/04_adoption_revenue.png)
+![Ứng dụng AI và tăng doanh thu được báo cáo](figures/04_adoption_revenue_vi.png)
 
 *Hình 4. Mỗi điểm tương ứng một bản ghi; đường thẳng là hồi quy tuyến tính mô tả. Nguồn: CSV của repo, n = 200.*
 
 Giữa ứng dụng AI và tăng doanh thu, r = 0,002 (p = 0,979; khoảng tin cậy 95%: −0,137 đến 0,141). Giữa ứng dụng AI và mất việc, r = −0,005 (p = 0,949). Trong 21 cặp, trị tuyệt đối lớn nhất thuộc cặp mất việc–tăng doanh thu (r = 0,153; p chưa hiệu chỉnh = 0,031). Sau hiệu chỉnh nhiều phép thử, cặp này có q = 0,644. Không có cặp nào đạt q < 0,05. Kết quả cho thấy dữ liệu hiện tại không ghi nhận quan hệ tuyến tính rõ về độ lớn giữa các chỉ số chính; chúng không chứng minh rằng tác động thực tế bằng không.
 
 ### 3.4. Một so sánh giữa các ngành
+
+![Trung bình ứng dụng AI và tăng doanh thu theo ngành](figures/05_industry_means_vi.png)
+
+*Hình 5. Mỗi điểm là trung bình của một ngành, diện tích điểm theo số dòng; đường đứt là trung bình toàn mẫu. Nguồn: CSV của repo, n = 200.*
 
 Trong 10 ngành, Gaming có ứng dụng AI trung bình cao nhất (60,42%; n = 27) nhưng tăng doanh thu được báo cáo thấp nhất (33,23%). Media có ứng dụng AI trung bình thấp nhất (47,26%; n = 31), trong khi tăng doanh thu đạt 43,72%. Sự đảo chiều thứ hạng này đáng để khảo sát thêm, nhưng không cho biết nguyên nhân. Các trung bình ngành chưa được điều chỉnh theo quốc gia, năm hoặc đặc điểm đơn vị quan sát; báo cáo cũng không thực hiện phép kiểm định chênh lệch giữa hai ngành.
 
@@ -74,4 +78,4 @@ python analyze_data.py
 python build_dashboard.py
 ```
 
-Script đầu tiên tạo bốn hình và [`summary.json`](figures/summary.json) trong `reports/figures/`. Script thứ hai nhúng CSV hiện tại vào [dashboard HTML](dashboard.html) để mở offline. `analyze_data.py` nhận tùy chọn `--data` và `--output` khi cần thay nguồn hoặc thư mục đầu ra. Các hình PNG cũ ở thư mục gốc là sản phẩm của phiên bản code trước, không được dùng để lập báo cáo này.
+Script đầu tiên tạo năm hình bằng tiếng Anh, năm hình tương ứng bằng tiếng Việt và [`summary.json`](figures/summary.json) trong `reports/figures/`. Script thứ hai nhúng CSV cùng mười hình vào [dashboard HTML](dashboard.html) để mở offline. Cần chạy `analyze_data.py` trước `build_dashboard.py`; script dựng dashboard kiểm tra SHA-256 để tránh dùng hình từ một phiên bản CSV khác. Các nhận định viết sẵn trong HTML áp dụng cho 200 dòng hiện tại và cần rà lại nếu thay nguồn dữ liệu. `analyze_data.py` nhận tùy chọn `--data` và `--output` khi cần thay nguồn hoặc thư mục đầu ra. Các hình PNG cũ ở thư mục gốc là sản phẩm của phiên bản code trước, không được dùng để lập báo cáo này.

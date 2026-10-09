@@ -16,7 +16,7 @@ python analyze_data.py
 python build_dashboard.py
 ```
 
-`analyze_data.py` ghi bốn biểu đồ PNG và số liệu máy đọc được vào `reports/figures/`. `build_dashboard.py` nhúng CSV hiện tại vào `reports/dashboard.html`; có thể mở file HTML trực tiếp bằng trình duyệt mà không cần server hay Internet. Nút **VI / EN** đổi ngôn ngữ toàn bộ dashboard và giữ nguyên lựa chọn bộ lọc. Hai script chạy được từ bất kỳ thư mục nào vì đường dẫn mặc định được tính theo vị trí script. Tùy chọn cho phân tích:
+`analyze_data.py` ghi năm biểu đồ PNG bằng tiếng Anh, năm bản tiếng Việt và số liệu máy đọc được vào `reports/figures/`. `build_dashboard.py` nhúng CSV cùng các hình vào `reports/dashboard.html`; có thể mở file HTML trực tiếp bằng trình duyệt mà không cần server hay Internet. Năm hình có phần đọc số liệu và giới hạn ngay bên cạnh; bên dưới là các biểu đồ tương tác theo bộ lọc. Nút **VI / EN** đổi cả văn bản lẫn hình và giữ nguyên lựa chọn bộ lọc. Hai script chạy được từ bất kỳ thư mục nào vì đường dẫn mặc định được tính theo vị trí script. Tùy chọn cho phân tích:
 
 ```bash
 python analyze_data.py --data data/Global_AI_Content_Impact_Dataset.csv --output reports/figures
@@ -25,10 +25,10 @@ python analyze_data.py --data data/Global_AI_Content_Impact_Dataset.csv --output
 ## Cấu trúc
 
 - `analyze_data.py`: kiểm tra schema, số liệu mô tả, tương quan và biểu đồ.
-- `build_dashboard.py`: cập nhật dữ liệu nhúng trong dashboard HTML.
+- `build_dashboard.py`: kiểm tra SHA-256 nguồn rồi nhúng dữ liệu và hình vào dashboard HTML.
 - `data/`: CSV nguồn được giữ nguyên.
 - `reports/AI_impact_analysis_vi.md` và `reports/AI_impact_analysis_en.md`: hai bản ngôn ngữ của cùng báo cáo.
-- `reports/dashboard.html`: dashboard offline với bộ lọc, biểu đồ và insight tính theo lựa chọn hiện tại.
+- `reports/dashboard.html`: báo cáo trực quan offline với năm hình có diễn giải toàn mẫu và phần tương tác theo bộ lọc.
 - `reports/figures/`: biểu đồ và `summary.json` có thể tái tạo.
 
 Các PNG cũ ở thư mục gốc là đầu ra lịch sử của code trước đây. Báo cáo mới chỉ dẫn tới biểu đồ trong `reports/figures/`.

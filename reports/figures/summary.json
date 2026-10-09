@@ -98,6 +98,58 @@
       "revenue_mean": 38.3271052631579
     }
   },
+  "industry_means": {
+    "Automotive": {
+      "n": 19,
+      "adoption_mean": 54.8878947368421,
+      "revenue_mean": 46.48263157894737
+    },
+    "Education": {
+      "n": 17,
+      "adoption_mean": 57.02823529411765,
+      "revenue_mean": 39.54352941176471
+    },
+    "Finance": {
+      "n": 14,
+      "adoption_mean": 55.76428571428571,
+      "revenue_mean": 36.25714285714285
+    },
+    "Gaming": {
+      "n": 27,
+      "adoption_mean": 60.416296296296295,
+      "revenue_mean": 33.23444444444445
+    },
+    "Healthcare": {
+      "n": 17,
+      "adoption_mean": 55.734117647058824,
+      "revenue_mean": 38.586470588235294
+    },
+    "Legal": {
+      "n": 17,
+      "adoption_mean": 56.07764705882354,
+      "revenue_mean": 41.82411764705882
+    },
+    "Manufacturing": {
+      "n": 18,
+      "adoption_mean": 57.01444444444444,
+      "revenue_mean": 42.80722222222223
+    },
+    "Marketing": {
+      "n": 19,
+      "adoption_mean": 54.24421052631578,
+      "revenue_mean": 36.81368421052632
+    },
+    "Media": {
+      "n": 31,
+      "adoption_mean": 47.26322580645161,
+      "revenue_mean": 43.71967741935484
+    },
+    "Retail": {
+      "n": 21,
+      "adoption_mean": 47.90571428571429,
+      "revenue_mean": 37.67952380952381
+    }
+  },
   "trends": {
     "AI Adoption Rate (%)": {
       "slope_percentage_points_per_year": 0.3319607784002222,
@@ -361,5 +413,6 @@
       ],
       "q_bh": 0.9747601943626518
     }
-  ]
+  ],
+  "source_sha256": "53b52d3d5fef30db9f575852ddcf6cbe347e049aef4de145f689f456fbf7a514"
 }

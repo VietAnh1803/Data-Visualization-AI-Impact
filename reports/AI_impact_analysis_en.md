@@ -44,7 +44,7 @@ Mean AI adoption is 50.99% in 2020, reaches 59.68% in 2023 and is 54.26% in 2025
 
 ![Correlation matrix of seven numeric measures](figures/03_correlations.png)
 
-*Figure 3. Pearson correlations among seven numeric measures, n = 200. Color indicates the direction and magnitude of r. Source: repository CSV.*
+*Figure 3. Pearson correlations among seven numeric measures, n = 200. The 21 unique pairs use a −0.25 to 0.25 color scale to reveal small coefficients; color does not indicate statistical significance. Source: repository CSV.*
 
 ![AI adoption versus reported revenue increase](figures/04_adoption_revenue.png)
 
@@ -53,6 +53,10 @@ Mean AI adoption is 50.99% in 2020, reaches 59.68% in 2023 and is 54.26% in 2025
 The correlation between AI adoption and reported revenue increase is r = 0.002 (p = 0.979; 95% confidence interval: −0.137 to 0.141). Adoption and reported job loss have r = −0.005 (p = 0.949). Of the 21 pairs, the largest absolute correlation is between job loss and revenue increase (r = 0.153; unadjusted p = 0.031). Its adjusted value is q = 0.644, and no pair reaches q < 0.05. These data show no clear linear association of substantial magnitude among the main measures. They do not establish that any real-world effect is zero.
 
 ### 3.4. An industry comparison
+
+![Industry mean AI adoption and reported revenue increase](figures/05_industry_means.png)
+
+*Figure 5. Each point is an industry mean, sized by record count; dashed lines mark full-sample means. Source: repository CSV, n = 200.*
 
 Among the 10 industries, Gaming has the highest mean AI adoption (60.42%; n = 27) but the lowest reported revenue increase (33.23%). Media has the lowest mean adoption (47.26%; n = 31), while its reported revenue increase is 43.72%. This reversal in ranks warrants closer examination but offers no explanation for the difference. Industry means are unadjusted for country, year or characteristics of the observation unit, and no formal test of the Gaming–Media difference is made here.
 
@@ -74,4 +78,4 @@ python analyze_data.py
 python build_dashboard.py
 ```
 
-The first script writes four figures and [`summary.json`](figures/summary.json) to `reports/figures/`. The second embeds the current CSV in the offline [HTML dashboard](dashboard.html). `analyze_data.py` accepts `--data` and `--output` to select another source or destination. Older PNG files in the repository root were produced by earlier code and are not used in this report.
+The first script writes five figures in English, five corresponding figures in Vietnamese, and [`summary.json`](figures/summary.json) to `reports/figures/`. The second embeds the CSV and all ten images in the offline [HTML dashboard](dashboard.html). Run `analyze_data.py` before `build_dashboard.py`; the builder checks the CSV SHA-256 to avoid embedding figures from another data version. The fixed narrative in the HTML describes the current 200 records and should be reviewed if the source changes. `analyze_data.py` accepts `--data` and `--output` to select another source or destination. Older PNG files in the repository root were produced by earlier code and are not used in this report.

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from itertools import combinations
 from pathlib import Path
@@ -68,57 +69,108 @@ def summarize(df: pd.DataFrame) -> dict:
             "adoption_mean": float(group[PERCENT[0]].mean()),
             "revenue_mean": float(group[PERCENT[2]].mean())}
             for year, group in df.groupby("Year")},
+        "industry_means": {industry: {"n": len(group),
+            "adoption_mean": float(group[PERCENT[0]].mean()),
+            "revenue_mean": float(group[PERCENT[2]].mean())}
+            for industry, group in df.groupby("Industry")},
         "trends": trends, "correlations": pairs,
     }
 
 
 def create_figures(df: pd.DataFrame, out: Path) -> None:
     out.mkdir(parents=True, exist_ok=True)
-    sns.set_theme(style="whitegrid", palette="deep", font_scale=.95)
-    blue, orange = "#245E7A", "#C47C3B"
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), constrained_layout=True)
-    for ax, col, title in zip(axes, PERCENT[:3], ["AI adoption", "Job loss", "Revenue increase"]):
-        sns.histplot(df[col].dropna(), bins=12, color=blue, ax=ax)
-        ax.axvline(df[col].mean(), color=orange, lw=2, label=f"Mean {df[col].mean():.1f}%")
-        ax.set(title=title, xlabel="Reported rate (%)", ylabel="Observations (count)")
-        ax.legend(frameon=False)
-    fig.suptitle(f"Distribution of reported AI impact measures | n = {len(df)}")
-    fig.savefig(out / "01_distributions.png", dpi=180)
-    plt.close(fig)
+    sns.set_theme(style="whitegrid", font_scale=.95)
+    blue, orange, red = "#08726f", "#a65018", "#a5414d"
+    for lang in ("en", "vi"):
+        vi = lang == "vi"
+        suffix = "_vi" if vi else ""
+        fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), constrained_layout=True)
+        titles = (["Ứng dụng AI", "Mất việc", "Tăng doanh thu"] if vi else
+                  ["AI adoption", "Job loss", "Revenue increase"])
+        for ax, col, title, color in zip(axes, PERCENT[:3], titles, [blue, red, orange]):
+            sns.histplot(df[col].dropna(), bins=12, color=color, ax=ax)
+            ax.axvline(df[col].mean(), color="#18313a", lw=2,
+                       label=("Trung bình" if vi else "Mean") + f" {df[col].mean():.1f}%")
+            ax.set(title=title, xlabel="Tỷ lệ ghi nhận (%)" if vi else "Reported rate (%)",
+                   ylabel="Số dòng" if vi else "Records")
+            ax.legend(frameon=False)
+        fig.suptitle(("Phân bố ba chỉ số được ghi nhận" if vi else
+                      "Distributions of three reported measures") + f" | n = {len(df)}")
+        fig.savefig(out / f"01_distributions{suffix}.png", dpi=180)
+        plt.close(fig)
 
-    fig, axes = plt.subplots(1, 2, figsize=(13, 4.5), constrained_layout=True)
-    for ax, col, title, color in zip(axes, [PERCENT[0], PERCENT[2]],
-                                      ["AI adoption by year", "Revenue increase by year"], [blue, orange]):
-        grouped = df.groupby("Year")[col].agg(["mean", "std", "count"])
-        ci = stats.t.ppf(.975, grouped["count"]-1) * grouped["std"] / np.sqrt(grouped["count"])
-        ax.errorbar(grouped.index, grouped["mean"], yerr=ci, color=color, marker="o", capsize=4)
-        ax.set(title=title, xlabel="Year", ylabel="Mean reported rate (%)", xticks=grouped.index)
-        ax.set_ylim(bottom=0)
-        for year, row in grouped.iterrows():
-            ax.annotate(f"n={int(row['count'])}", (year, row["mean"]), xytext=(0, 11),
-                        textcoords="offset points", ha="center", fontsize=8)
-    fig.suptitle("Annual sample means with 95% t intervals (unweighted rows)")
-    fig.savefig(out / "02_year_means.png", dpi=180)
-    plt.close(fig)
+        fig, axes = plt.subplots(1, 2, figsize=(13, 4.5), constrained_layout=True)
+        titles = (["Ứng dụng AI theo năm", "Tăng doanh thu theo năm"] if vi else
+                  ["AI adoption by year", "Revenue increase by year"])
+        for ax, col, title, color in zip(axes, [PERCENT[0], PERCENT[2]], titles, [blue, orange]):
+            grouped = df.groupby("Year")[col].agg(["mean", "std", "count"])
+            ci = stats.t.ppf(.975, grouped["count"]-1) * grouped["std"] / np.sqrt(grouped["count"])
+            ax.errorbar(grouped.index, grouped["mean"], yerr=ci, color=color, marker="o", capsize=4)
+            ax.set(title=title, xlabel="Năm" if vi else "Year",
+                   ylabel="Trung bình (%)" if vi else "Mean reported rate (%)", xticks=grouped.index)
+            ax.set_ylim(bottom=0)
+            for year, row in grouped.iterrows():
+                ax.annotate(f"n={int(row['count'])}", (year, row["mean"]), xytext=(0, 11),
+                            textcoords="offset points", ha="center", fontsize=8)
+        fig.suptitle("Trung bình năm và khoảng tin cậy 95%" if vi else
+                     "Annual sample means with 95% t intervals")
+        fig.savefig(out / f"02_year_means{suffix}.png", dpi=180)
+        plt.close(fig)
 
-    labels = {PERCENT[0]: "Adoption", VOLUME: "Content volume", PERCENT[1]: "Job loss",
-              PERCENT[2]: "Revenue", PERCENT[3]: "Collaboration", PERCENT[4]: "Trust",
-              PERCENT[5]: "Market share"}
-    fig, ax = plt.subplots(figsize=(9, 7), constrained_layout=True)
-    sns.heatmap(df[list(labels)].rename(columns=labels).corr(), vmin=-1, vmax=1, center=0,
-                cmap="vlag", annot=True, fmt=".2f", square=True, linewidths=.4, ax=ax,
-                cbar_kws={"label": "Pearson r"})
-    ax.set_title(f"Pairwise Pearson correlations | numeric measures, n = {len(df)}")
-    fig.savefig(out / "03_correlations.png", dpi=180)
-    plt.close(fig)
+        labels = {PERCENT[0]: "Ứng dụng" if vi else "Adoption",
+                  VOLUME: "Nội dung" if vi else "Content volume",
+                  PERCENT[1]: "Mất việc" if vi else "Job loss",
+                  PERCENT[2]: "Doanh thu" if vi else "Revenue",
+                  PERCENT[3]: "Hợp tác" if vi else "Collaboration",
+                  PERCENT[4]: "Niềm tin" if vi else "Trust",
+                  PERCENT[5]: "Thị phần" if vi else "Market share"}
+        correlations = df[list(labels)].rename(columns=labels).corr()
+        mask = np.triu(np.ones(correlations.shape, dtype=bool))
+        fig, ax = plt.subplots(figsize=(9, 7), constrained_layout=True)
+        sns.heatmap(correlations, mask=mask, vmin=-.25, vmax=.25, center=0,
+                    cmap="RdBu_r", annot=True, fmt=".3f", square=True,
+                    linewidths=.7, linecolor="#ffffff", ax=ax,
+                    cbar_kws={"label": "Pearson r", "shrink": .75})
+        ax.grid(False)
+        ax.set_title(("Tương quan giữa bảy chỉ số" if vi else
+                      "Correlations among seven measures") + f" | n = {len(df)}")
+        ax.tick_params(axis="x", rotation=25)
+        ax.tick_params(axis="y", rotation=0)
+        fig.savefig(out / f"03_correlations{suffix}.png", dpi=180)
+        plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(8, 5), constrained_layout=True)
-    sns.regplot(data=df, x=PERCENT[0], y=PERCENT[2], ci=None,
-                scatter_kws={"alpha": .55, "s": 28}, line_kws={"color": orange}, ax=ax)
-    ax.set(title=f"Adoption versus reported revenue increase | n = {len(df)}",
-           xlabel="AI adoption rate (%)", ylabel="Revenue increase due to AI (%)")
-    fig.savefig(out / "04_adoption_revenue.png", dpi=180)
-    plt.close(fig)
+        fig, ax = plt.subplots(figsize=(8, 5), constrained_layout=True)
+        sns.regplot(data=df, x=PERCENT[0], y=PERCENT[2], ci=None,
+                    scatter_kws={"alpha": .55, "s": 28, "color": blue},
+                    line_kws={"color": orange}, ax=ax)
+        ax.set(title=("Ứng dụng AI và tăng doanh thu" if vi else
+                      "Adoption versus reported revenue increase") + f" | n = {len(df)}",
+               xlabel="Ứng dụng AI (%)" if vi else "AI adoption rate (%)",
+               ylabel="Tăng doanh thu được ghi nhận (%)" if vi else "Reported revenue increase (%)")
+        fig.savefig(out / f"04_adoption_revenue{suffix}.png", dpi=180)
+        plt.close(fig)
+
+        industry = df.groupby("Industry").agg(
+            adoption=(PERCENT[0], "mean"), revenue=(PERCENT[2], "mean"), n=("Industry", "size"))
+        fig, ax = plt.subplots(figsize=(9, 5.5), constrained_layout=True)
+        ax.axvline(df[PERCENT[0]].mean(), color=blue, ls="--", lw=1, alpha=.6)
+        ax.axhline(df[PERCENT[2]].mean(), color=orange, ls="--", lw=1, alpha=.6)
+        offsets = {"Manufacturing": (8, 13), "Legal": (8, -11),
+                   "Education": (8, 13), "Healthcare": (8, -11),
+                   "Marketing": (-82, -12), "Finance": (8, -11)}
+        for name, row in industry.iterrows():
+            color = orange if name == "Gaming" else blue if name == "Media" else "#8ca4a8"
+            ax.scatter(row.adoption, row.revenue, s=row.n * 17, color=color,
+                       alpha=.85, edgecolor="white", linewidth=1, zorder=3)
+            ax.annotate(f"{name} (n={int(row.n)})", (row.adoption, row.revenue),
+                        xytext=offsets.get(name, (6, 5)), textcoords="offset points", fontsize=8)
+        ax.set(title="Trung bình theo ngành: ứng dụng và doanh thu" if vi else
+               "Industry means: adoption and revenue increase",
+               xlabel="Ứng dụng AI trung bình (%)" if vi else "Mean AI adoption (%)",
+               ylabel="Tăng doanh thu trung bình (%)" if vi else "Mean revenue increase (%)")
+        ax.margins(x=.18, y=.2)
+        fig.savefig(out / f"05_industry_means{suffix}.png", dpi=180)
+        plt.close(fig)
 
 
 def main() -> None:
@@ -128,9 +180,10 @@ def main() -> None:
     args = parser.parse_args()
     df = load_data(args.data)
     result = summarize(df)
+    result["source_sha256"] = hashlib.sha256(args.data.read_bytes()).hexdigest()
     create_figures(df, args.output)
     (args.output / "summary.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"Analyzed {result['rows']} rows; wrote summary and 4 figures to {args.output.resolve()}")
+    print(f"Analyzed {result['rows']} rows; wrote summary and 10 figure variants to {args.output.resolve()}")
 
 
 if __name__ == "__main__":
